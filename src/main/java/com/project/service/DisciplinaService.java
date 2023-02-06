@@ -26,33 +26,45 @@ public class DisciplinaService {
 
 	public void criaDisciplina(DisciplinaDTO dto) {
 		Disciplina disciplina = new Disciplina();
+		disciplina = dtoParaEnt(dto);
+		disciplinaRepository.save(disciplina);
+	}
+
+	public void criaDisciplinaEmLista(List<DisciplinaDTO> dtos) {
+		for (DisciplinaDTO dto : dtos) {
+			Disciplina disciplina = new Disciplina();
+			disciplina = dtoParaEnt(dto);
+			disciplinaRepository.save(disciplina);
+
+		}
+
+	}
+
+	private Disciplina dtoParaEnt(DisciplinaDTO dto) {
+		Disciplina disciplina = new Disciplina();
 		List<Aluno> alunos = new ArrayList<>();
 		List<Professor> professores = new ArrayList<>();
 		List<Disciplina> disciplinas = new ArrayList<>();
-		// disciplina = dtoParaEnt(dto);
-		
+		disciplina.setNome(dto.getNome());
+		disciplina.setDescricao(dto.getDescricao());
+		disciplina.setPeriodo(dto.getPeriodo());
+
 		for (Integer id : dto.getAlunos()) {
 			Optional<Aluno> aluno = alunoRepository.findById(id);
 			aluno.get().setDisciplina(disciplina);
 			alunos.add(aluno.get());
 
 		}
-		for(Integer id : dto.getProfessores()) {
-		   Optional<Professor> professor = professorRepository.findById(id);
+		for (Integer id : dto.getProfessores()) {
+			Optional<Professor> professor = professorRepository.findById(id);
+			disciplinas.add(disciplina);
 			professores.add(professor.get());
 			professor.get().setDisciplinas(disciplinas);
-		}	
+		}
 		disciplina.setAlunos(alunos);
-		disciplinaRepository.save(disciplina);
-	}
-	
+		disciplina.setProfessores(professores);
 
-		
-		
-
-		
-		 
-		 
+		return disciplina;
 	}
 
-
+}
