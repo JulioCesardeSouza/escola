@@ -36,7 +36,7 @@ public class DisciplinaService {
 			disciplina = dtoParaEnt(dto);
 			disciplinaRepository.save(disciplina);
 
-		}
+		} 
 
 	}
 
