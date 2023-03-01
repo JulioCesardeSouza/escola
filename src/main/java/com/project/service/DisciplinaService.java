@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.dto.DisciplinaDTO;
+import com.project.enums.Periodo;
 import com.project.model.Aluno;
 import com.project.model.Disciplina;
 import com.project.model.Professor;
@@ -36,7 +37,7 @@ public class DisciplinaService {
 			disciplina = dtoParaEnt(dto);
 			disciplinaRepository.save(disciplina);
 
-		} 
+		}
 
 	}
 
@@ -47,7 +48,16 @@ public class DisciplinaService {
 		List<Disciplina> disciplinas = new ArrayList<>();
 		disciplina.setNome(dto.getNome());
 		disciplina.setDescricao(dto.getDescricao());
-		disciplina.setPeriodo(dto.getPeriodo());
+		String periodo = dto.getPeriodo().toUpperCase();
+		switch (periodo) {
+		case "MANHA":
+			disciplina.setPeriodo(Periodo.MANHA);
+		case "TARDE":
+			disciplina.setPeriodo(Periodo.TARDE);
+		case "NOITE":
+			disciplina.setPeriodo(Periodo.NOITE);
+
+		}
 
 		for (Integer id : dto.getAlunos()) {
 			Optional<Aluno> aluno = alunoRepository.findById(id);

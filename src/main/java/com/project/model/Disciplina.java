@@ -3,7 +3,11 @@ package com.project.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.project.enums.Periodo;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +27,8 @@ public class Disciplina implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-	private String periodo;
+	@Enumerated(EnumType.STRING)
+	private Periodo periodo;
 	private String nome;
 	@OneToMany(mappedBy = "disciplina", fetch = FetchType.LAZY)
 	private List<Aluno> alunos;
@@ -35,7 +40,7 @@ public class Disciplina implements Serializable {
 
 	}
 
-	public Disciplina(Integer id, String descricao, String periodo, String nome) {
+	public Disciplina(Integer id, String descricao,	Periodo periodo, String nome) {
 
 		this.id = id;
 		this.descricao = descricao;
@@ -59,11 +64,11 @@ public class Disciplina implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getPeriodo() {
+	public Periodo getPeriodo() {
 		return periodo;
 	}
 
-	public void setPeriodo(String periodo) {
+	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
 	}
 

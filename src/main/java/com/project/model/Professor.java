@@ -1,7 +1,10 @@
 package com.project.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +24,9 @@ public class Professor implements Serializable {
 	private String nome;
 	private int idade;
 	private boolean leciona;
+	@JsonIgnore
 	@ManyToMany(mappedBy = "professores")
-	private List<Disciplina> disciplinas;
+	private List<Disciplina> disciplinas = new ArrayList<>();
 
 	public Professor() {
 

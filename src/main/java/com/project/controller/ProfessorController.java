@@ -1,5 +1,8 @@
 package com.project.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,11 @@ public class ProfessorController {
 	public String salvaProfessor(@RequestBody Professor professor) {
 		professorService.criarProfessor(professor);
 		return "professor salvo com sucesso";
+	}
+	
+	@GetMapping
+	public List<Professor> retornaTodosProfessores(){
+		return professorService.retornaTodosProfessores();
 	}
 	
 
